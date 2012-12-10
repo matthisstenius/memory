@@ -10,12 +10,14 @@ h1 {
 }
 
 .wrapper {
-	width: 680px;
-	margin: 0 auto;
+	overflow: auto;
 }
 
 .board {
-	margin-bottom: 20px;
+	position: relative;
+	width: 680px;
+	float: left;
+	margin: 0 10px 20px 10px;
 	background-color: #FFFFFF;
 }
 
@@ -28,3 +30,48 @@ h1 {
 	height: 150px;
 }
 
+.alertBox {
+	position: absolute;
+	padding: 10px;
+	top: 30%;
+	left: 25%;
+	background-color: #FFFFFF;
+	border-radius: 5px;
+	-webkit-box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.4);
+}
+
+.alertBox a {
+	text-decoration: none;
+	color: #FFFFFF;
+	display: inline-block;
+	border-radius: 3px;
+	padding: 5px;
+	text-align: center;
+	margin-left: 5px;
+}
+
+.newGame, #newGameButton {
+	background-image: #429212;
+    background-image: -webkit-linear-gradient(bottom, #429212, #5cc51d);
+    background-image: -moz-linear-gradient(bottom, #429212, #5cc51d);
+    background-image: -o-linear-gradient(bottom, #429212, #5cc51d);
+    background-image: -ms-linear-gradient(bottom, #429212, #5cc51d);
+    background-image: linear-gradient(bottom, #429212, #5cc51d);
+}
+
+.close {
+	background-image: #b72d16;
+    background-image: -webkit-linear-gradient(bottom, #b72d16, #cd3217);
+    background-image: -moz-linear-gradient(bottom, #b72d16, #cd3217);
+    background-image: -o-linear-gradient(bottom, #b72d16, #cd3217);
+    background-image: -ms-linear-gradient(bottom, #b72d16, #cd3217);
+    background-image: linear-gradient(bottom, #b72d16, #cd3217);
+}
+#newGameButton {
+	text-decoration: none;
+	color: #FFFFFF;
+	text-align: center;
+	display: inline-block;
+	width: 100%;
+	padding: 10px 0;
+}

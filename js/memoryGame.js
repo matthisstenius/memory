@@ -1,9 +1,30 @@
-window.onload = function() {
-	var memory1 = new MemoryGame("#board1");
+var startGame = {
+	newGame: function() {
+		var startButton = document.getElementById("newGameButton");
 
-	memory1.init();
+		startButton.onclick = function() {
+			startGame.newMemory();
+			return false;
+		};
+	},
 
+	gameCounter: 1,
+
+	newMemory: function() {
+		var wrapper = document.querySelector(".wrapper");
+		var newBoard = document.createElement("div");
+		newBoard.id = "#board" + startGame.gameCounter;
+		newBoard.setAttribute("class", "board");
+
+		wrapper.appendChild(newBoard);
+		var memory = new MemoryGame(newBoard.id);
+		memory.init();
+
+		startGame.gameCounter += 1;
+	}
 };
+
+window.onload = startGame.newGame;
 
 MemoryGame = function(boardID) {
 	var that = this;
@@ -25,16 +46,17 @@ MemoryGame = function(boardID) {
 	};
 
 	this.generateMemory = function() {
-		var board, a, img, memoryBoard, randomArray, count;
+		var currentBoard, a, img, memoryBoard, randomArray, count;
 
 
 		randomArray = that.random();
-		board = document.querySelector(boardID);
+
+		currentBoard = document.getElementById(boardID);
 
 		memoryBoard = document.createElement("div");
 		memoryBoard.setAttribute("class", "memoryBoard");
 
-		board.appendChild(memoryBoard);
+		currentBoard.appendChild(memoryBoard);
 
 		for (var i = 0; i < randomArray.length; i += 1) {
 			randomTiles(i);
@@ -54,7 +76,6 @@ MemoryGame = function(boardID) {
 
 			a.onclick = function() {
 				that.switchTile(this, randomArray[i]);
-
 				return false;
 			};
 		}
@@ -123,12 +144,55 @@ MemoryGame = function(boardID) {
 		}
 
 		if (pairCount === 8) {
-			alert("Grattis till vinsten! Du klarade det på " + guessCount + " försök.");
+			that.renderAlertBox("Grattis till vinsten! Du klarade det på " + guessCount + " försök.");
 		}
 
 		if (guessCount === 25) {
-			alert("För många gissningar!");
+			that.renderAlertBox("Du är för dålig!");
 		}
+	};
+
+	this.renderAlertBox = function(alertMessage) {
+		var alertBox, message, newGame, close, wrapper, background, board;
+
+		board = document.getElementById(boardID);
+
+		wrapper = document.querySelector(".wrapper");
+		background = document.querySelector("body");
+
+		alertBox = document.createElement("div");
+		message = document.createElement("p");
+		newGame = document.createElement("a");
+		close = document.createElement("a");
+
+		background.setAttribute("class", "greyOut");
+		alertBox.setAttribute("class", "alertBox");
+		message.innerHTML = alertMessage;
+		newGame.setAttribute("class", "newGame");
+		close.setAttribute("class", "close");
+		newGame.href = "#";
+		newGame.innerHTML = "Spela igen";
+		close.href = "#";
+		close.innerHTML = "Stäng";
+
+		board.appendChild(alertBox);
+		alertBox.appendChild(message);
+		alertBox.appendChild(newGame);
+		alertBox.appendChild(close);
+
+		newGame.onclick = function() {
+			board.removeChild(alertBox);
+			wrapper.removeChild(board);
+			startGame.newMemory();
+			return false;
+		};
+
+		close.onclick = function() {
+			board.removeChild(alertBox);
+			wrapper.removeChild(board);
+			return false;
+		};
+
 	};
 };
 
