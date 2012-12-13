@@ -46,17 +46,29 @@ MemoryGame = function(boardID) {
 	};
 
 	this.generateMemory = function() {
-		var currentBoard, a, img, memoryBoard, randomArray, count;
-
+		var currentBoard, a, img, memoryBoard, randomArray, count, closeTab, wrapper;
 
 		randomArray = that.random();
 
+		wrapper = document.querySelector(".wrapper");
 		currentBoard = document.getElementById(boardID);
+
+		closeTab = document.createElement("a");
+		closeTab.href = "#";
+		closeTab.textContent = "Stäng";
+		closeTab.setAttribute("class", "closeTab");
 
 		memoryBoard = document.createElement("div");
 		memoryBoard.setAttribute("class", "memoryBoard");
 
+		currentBoard.appendChild(closeTab);
 		currentBoard.appendChild(memoryBoard);
+
+		// close memoryBoardboard
+		closeTab.onclick = function() {
+			wrapper.removeChild(currentBoard);
+			return false;
+		};
 
 		for (var i = 0; i < randomArray.length; i += 1) {
 			randomTiles(i);
@@ -153,7 +165,7 @@ MemoryGame = function(boardID) {
 	};
 
 	this.renderAlertBox = function(alertMessage) {
-		var alertBox, message, newGame, close, wrapper, background, board;
+		var alertBox, message, newGame, close, wrapper, background, board, overlay;
 
 		board = document.getElementById(boardID);
 
@@ -164,24 +176,28 @@ MemoryGame = function(boardID) {
 		message = document.createElement("p");
 		newGame = document.createElement("a");
 		close = document.createElement("a");
+		overlay = document.createElement("div");
 
+		overlay.setAttribute("class", "overlay");
 		background.setAttribute("class", "greyOut");
 		alertBox.setAttribute("class", "alertBox");
-		message.innerHTML = alertMessage;
+		message.textContent = alertMessage;
 		newGame.setAttribute("class", "newGame");
 		close.setAttribute("class", "close");
 		newGame.href = "#";
-		newGame.innerHTML = "Spela igen";
+		newGame.textContent = "Spela igen";
 		close.href = "#";
-		close.innerHTML = "Stäng";
+		close.textContent = "Stäng";
 
 		board.appendChild(alertBox);
+		board.appendChild(overlay);
 		alertBox.appendChild(message);
 		alertBox.appendChild(newGame);
 		alertBox.appendChild(close);
 
 		newGame.onclick = function() {
 			board.removeChild(alertBox);
+			board.removeChild(overlay);
 			wrapper.removeChild(board);
 			startGame.newMemory();
 			return false;
@@ -189,6 +205,7 @@ MemoryGame = function(boardID) {
 
 		close.onclick = function() {
 			board.removeChild(alertBox);
+			board.removeChild(overlay);
 			wrapper.removeChild(board);
 			return false;
 		};

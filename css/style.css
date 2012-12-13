@@ -9,6 +9,10 @@ h1 {
 	font-size: 40px;
 }
 
+a {
+	text-decoration: none;
+}
+
 .wrapper {
 	overflow: auto;
 }
@@ -17,8 +21,10 @@ h1 {
 	position: relative;
 	width: 680px;
 	float: left;
-	margin: 0 10px 20px 10px;
+	margin: 20px 10px 20px 10px;
+	padding: 5px 0;
 	background-color: #FFFFFF;
+	border-radius: 3px;
 }
 
 .tile , .tile img {
@@ -33,15 +39,17 @@ h1 {
 .alertBox {
 	position: absolute;
 	padding: 10px;
+	width: 300px;
+	margin-left: -150px;
 	top: 30%;
-	left: 25%;
+	left: 50%;
 	background-color: #FFFFFF;
 	border-radius: 5px;
 	-webkit-box-shadow: 10px 10px 50px rgba(0, 0, 0, 0.4);
+	z-index: 6;
 }
 
 .alertBox a {
-	text-decoration: none;
 	color: #FFFFFF;
 	display: inline-block;
 	border-radius: 3px;
@@ -68,10 +76,29 @@ h1 {
     background-image: linear-gradient(bottom, #b72d16, #cd3217);
 }
 #newGameButton {
-	text-decoration: none;
 	color: #FFFFFF;
 	text-align: center;
 	display: inline-block;
 	width: 100%;
 	padding: 10px 0;
+}
+
+.closeTab {
+	position: absolute;
+	padding: 5px;
+	color: #2A8FBD;
+	display: inline-block;
+	border-radius: 3px 3px 0 0;
+	background-color: #FFFFFF;
+	top: -20px;
+	right: 0;
+}
+
+.overlay {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.6);
+	width: 100%;
+	height: 100%;
+	top: 0;
+	z-index: 5;
 }
